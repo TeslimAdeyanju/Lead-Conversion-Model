@@ -1,121 +1,111 @@
+# Lead Conversion Prediction and Marketing Analytics
 
-# 17-Marketing-Intelligence-A-Predictive-Model-for-Lead-Conversion
+> A marketing analytics project exploring how lead behaviour and acquisition channels can inform the prediction of customer conversion and the design of an interpretable lead scoring system.
 
-## 🎯 Objective
+**Status:** Exploratory notebook and formal project scope available. A fully evaluated, deployable classification and scoring pipeline is not yet established.  
+**Tools:** Python, pandas, scikit-learn, Jupyter and Marimo.
 
-This project aims to build a classification model that predicts whether a lead will convert into a customer. The goal is to help marketing teams prioritize high-value prospects and improve conversion efficiency by implementing a simple and interpretable lead scoring system.
+## Executive Summary
 
----
+Sales and marketing teams need to understand which prospective customers are likely to convert so they can allocate attention more effectively. This project uses lead-level attributes to frame a binary classification problem, examine acquisition and behavioural patterns, and plan an interpretable probability-based lead scoring workflow.
 
-## 📦 Dataset
+The repository currently contains the source dataset, `notebook.ipynb`, a Marimo notebook exported as `notebook.py`, and a detailed implementation plan in `SCOPE_OF_WORK.md`. The scope document identifies modelling, evaluation, calibration and deployment milestones. Those milestones must not be mistaken for finished results.
 
-- **Source**: [Kaggle - Leads Dataset](https://www.kaggle.com/ashydv/leads-dataset)
-- **Target Variable**: `Converted` (1 = converted, 0 = not converted)
-- **Observation**: Each row represents a lead with attributes such as:
-  - `Lead Source`
-  - `TotalVisits`
-  - `Page Views Per Visit`
-  - `Last Activity`
-  - `Lead Quality`, etc.
+## Business Problem and Objectives
 
----
+**Target:** `Converted`, where 1 indicates conversion and 0 indicates non-conversion.
 
-## 🧼 Step 1: Data Cleaning & Preparation
+The project seeks to investigate the relationship between conversion and lead characteristics, establish an interpretable logistic regression baseline, evaluate ranking and classification performance, and eventually provide a transparent scoring mechanism for prioritising outreach.
 
-- Removed duplicates and irrelevant columns
-- Treated missing values using:
-  - Mode for categorical columns
-  - Median for numerical columns
-- Encoded categorical features using **One-Hot Encoding**
-- Scaled numerical features with **MinMaxScaler**
-- Handled class imbalance with **SMOTE (Synthetic Minority Over-sampling Technique)**
+Important business metrics include precision and recall, ROC AUC, precision among the highest-ranked leads, and probability calibration. A high model score alone does not establish increased revenue or campaign effectiveness.
 
----
+## Dataset
 
-## 📊 Step 2: Exploratory Data Analysis (EDA)
+The repository includes `Leads.csv`, described in the existing documentation as originating from the [Kaggle Leads Dataset](https://www.kaggle.com/ashydv/leads-dataset). Example fields include lead source, total visits, page views per visit, total time on website, last activity and lead quality. Review label availability and feature timestamps to prevent using information only known after conversion.
 
-- Checked class distribution (conversion vs. non-conversion)
-- Visualized relationships between key features and conversion
-- Key insights:
-  - Leads from `Reference` and `Google` showed higher conversion rates
-  - More time spent on the website and more visits increased the likelihood of conversion
+## Project Architecture
 
----
+```mermaid
+flowchart LR
+ A[Lead dataset] --> B[Audit and clean]
+ B --> C[Explore channels and behaviour]
+ C --> D[Encode features and split data]
+ D --> E[Train classification baseline]
+ E --> F[Evaluate and calibrate]
+ F --> G[Lead probability and scoring bands]
+```
 
-## 🧠 Step 3: Model Building
+The complete workflow above is the **intended design**, not a verified deployed system.
 
-- **Train/Validation/Test Split**: 60% / 20% / 20%
-- **Model Used**: Logistic Regression (simple, interpretable baseline)
-- Training pipeline:
-  - Fit the model on training data
-  - Evaluated on validation set
-  - Final performance checked on test set
+## Current Implementation and Planned Work
 
----
+| Component | Current evidence | Status |
+| --- | --- | --- |
+| Source leads dataset | `Leads.csv` | Available |
+| Research notebooks | `notebook.ipynb`, `notebook.py` | Present |
+| Problem formulation and staged work plan | `SCOPE_OF_WORK.md` | Documented |
+| Logistic regression model | Imports and planned baseline sections | Not independently verified as trained and evaluated |
+| Accuracy, precision, recall, F1 and ROC AUC | Original README uses `XX.XX` placeholders | No validated numbers to publish |
+| Lead probability bands | Proposed thresholds above 0.70 and 0.40 | Proposed, not validated |
+| Saved trained model, scoring CLI or Streamlit application | Listed as intended deliverables | Not present as deliverables |
 
-## 📈 Step 4: Model Evaluation
+The original README describes completed preprocessing, SMOTE, performance, exported models and a Streamlit app without showing the corresponding artifacts. This revision removes those unsupported completion claims.
 
-- **Confusion Matrix**
-- **Metrics**:
-  - Accuracy: `XX.XX%`
-  - Precision: `XX.XX%`
-  - Recall: `XX.XX%`
-  - F1 Score: `XX.XX%`
-  - ROC AUC Score: `XX.XX`
+## Methodology and Validation Plan
 
-> The model demonstrated solid performance, effectively identifying high-conversion leads while minimizing false positives.
+1. Audit missing values, target balance and duplicates.
+2. Split records before fitting imputers, encoders or resampling procedures.
+3. Build a logistic regression baseline with an auditable preprocessing pipeline.
+4. Compare precision, recall, F1, ROC AUC and PR AUC, alongside a majority-class baseline.
+5. Evaluate top-decile or top-quintile precision and calibrate probability estimates.
+6. Examine coefficients for associations, not causal marketing effects.
+7. Select lead scoring thresholds against realistic outreach capacity and costs.
+8. Save the fitted pipeline and produce an example scoring output after validation.
 
----
+SMOTE, if required, must operate on training folds only. Accuracy and threshold figures should not be reported until calculated on a held-out dataset.
 
-## 🔍 Step 5: Feature Importance
+## Repository Structure
 
-- Examined model coefficients to interpret feature impact
-- Most influential features:
-  - `Total Time Spent on Website`
-  - `Lead Source`
-  - `Page Views Per Visit`
-  - `Last Activity`
-  - `Lead Origin`
+```text
+README.md
+Leads.csv
+notebook.ipynb
+notebook.py
+SCOPE_OF_WORK.md
+requirements.txt
+.venv/              # Local environment currently tracked
+docs/
+    legacy-readme.md
+```
 
----
+**Repository hygiene:** A complete `.venv/` directory is tracked in Git. It should be excluded from version control, and files should be inspected for credentials or sensitive content before removal from the repository's history.
 
-## 🧮 Step 6: Lead Scoring System
+## Getting Started
 
-- Leads were scored using model probabilities:
-  - **High Potential**: score > 0.70
-  - **Medium Potential**: score between 0.40 and 0.70
-  - **Low Potential**: score < 0.40
+```bash
+git clone https://github.com/TeslimAdeyanju/Lead-Conversion-Model.git
+cd Lead-Conversion-Model
+python3 -m venv .venv-local
+source .venv-local/bin/activate
+python -m pip install -r requirements.txt
+jupyter notebook notebook.ipynb
+```
 
-This scoring helps marketing teams prioritize outreach for high-likelihood leads.
+`notebook.py` is a Marimo application and may be opened with `marimo edit notebook.py` if the environment provides Marimo. The commands have not been independently tested end to end. Consult `SCOPE_OF_WORK.md` for the project's implementation sequence.
 
----
+## Limitations and Future Development
 
-## 🖥️ Step 7: Application (Optional)
+- Complete an independently reproducible training and evaluation workflow.
+- Publish actual test metrics and a clear decision threshold.
+- Check for data leakage and dataset representativeness.
+- Validate lead scoring performance and probability calibration.
+- Create a model card and a working batch scoring interface.
+- Remove tracked local environment files.
+- Avoid using predictions as the sole basis for consequential decisions or profiling.
 
-- Model exported using `pickle`
-- Built a **Streamlit app** to:
-  - Upload new lead data
-  - Predict conversion probabilities
-  - Display lead category based on score
+## Author
 
----
+**Teslim Adeyanju**  
+[GitHub](https://github.com/TeslimAdeyanju) | [Portfolio](https://adeyanjuteslim.co.uk) | [LinkedIn](https://www.linkedin.com/in/adeyanjuteslimuthman)
 
-## 📝 Conclusion
-
-This project shows how machine learning can transform raw marketing data into actionable insights. A lead scoring model enables data-driven decisions, optimizes campaign targeting, and enhances customer acquisition strategies.
-
----
-
-## 💻 Tools Used
-
-- Python
-  - `pandas`, `numpy`, `scikit-learn`, `matplotlib`, `seaborn`
-- Handling imbalance: `imblearn` (SMOTE)
-- Model: `LogisticRegression`
-- App: `Streamlit` (optional)
-- Version Control: Git & GitHub
-
----
-
-## 📂 Folder Structure (Example)
-
+[Original README archive](docs/legacy-readme.md)
