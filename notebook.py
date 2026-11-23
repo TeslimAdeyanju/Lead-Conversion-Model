@@ -324,7 +324,7 @@ def _():
 
 @app.cell
 def _(pd):
-    df = pd.read_csv('Leads.csv', engine='pyarrow')
+    df = pd.read_csv('leads.csv', engine='pyarrow')
     df
     return (df,)
 

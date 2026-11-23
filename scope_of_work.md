@@ -2,7 +2,7 @@
 
 ## 1) Background
 
-You have a Kaggle-derived Leads dataset (Leads.csv) and a working notebook framing a classification approach (baseline Logistic Regression) to predict whether a lead converts. The project aims to turn that exploration into a reproducible, documented lead scoring solution that marketing/sales can use.
+You have a Kaggle-derived Leads dataset (leads.csv) and a working notebook framing a classification approach (baseline Logistic Regression) to predict whether a lead converts. The project aims to turn that exploration into a reproducible, documented lead scoring solution that marketing/sales can use.
 
 ## 2) Objectives and Success Criteria
 
@@ -28,7 +28,7 @@ Success criteria (qualitative)
 
 Data and understanding
 
-- Load and audit `Leads.csv` (schema, types, duplicates, missingness, target distribution).
+- Load and audit `leads.csv` (schema, types, duplicates, missingness, target distribution).
 - Formalize missing value policy; drop high-null columns (>30–35%) when justified.
 - Standardize column names (lowercase, underscores) per current notebook convention.
 
@@ -100,7 +100,7 @@ Optional (time-permitting)
 
 ## 7) Assumptions and Constraints
 
-- Data is provided as `Leads.csv` and is representative of current marketing operations.
+- Data is provided as `leads.csv` and is representative of current marketing operations.
 - No PII exposure beyond what is already present in the dataset; OK to store locally.
 - Python environment from `requirements.txt` (Python ≥ 3.10). If SMOTE is required, add `imbalanced-learn`.
 - Stakeholder availability for quick feedback on business thresholds (Top-K%).
@@ -125,7 +125,7 @@ Optional (time-permitting)
 ```text
 .
 ├── data/
-│   ├── raw/Leads.csv
+│   ├── raw/leads.csv
 │   └── processed/leads_clean.csv
 ├── models/
 │   └── model.joblib
