@@ -75,7 +75,7 @@ SCOPE_OF_WORK.md
 requirements.txt
 .venv/              # Local environment currently tracked
 docs/
-    legacy-readme.md
+    legacy_readme.md
 ```
 
 **Repository hygiene:** A complete `.venv/` directory is tracked in Git. It should be excluded from version control, and files should be inspected for credentials or sensitive content before removal from the repository's history.
@@ -108,4 +108,4 @@ jupyter notebook notebook.ipynb
 **Teslim Adeyanju**  
 [GitHub](https://github.com/TeslimAdeyanju) | [Portfolio](https://adeyanjuteslim.co.uk) | [LinkedIn](https://www.linkedin.com/in/adeyanjuteslimuthman)
 
-[Original README archive](docs/legacy-readme.md)
+[Original README archive](docs/legacy_readme.md)
